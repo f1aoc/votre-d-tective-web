@@ -1,7 +1,19 @@
 import { motion } from "framer-motion";
+import { useState } from "react";
 import heroBg from "@/assets/hero-bg.jpg";
 
 const HeroSection = () => {
+  const [hoveredWord, setHoveredWord] = useState<number | null>(null);
+
+  const words = [
+    { text: "Discrétion", italic: false },
+    { text: "&", italic: false },
+    { text: "perspicacité.", italic: false },
+  ];
+  const secondLine = [
+    { text: "Professionnellement", italic: true },
+  ];
+
   return (
     <section id="accueil" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0">
@@ -37,8 +49,46 @@ const HeroSection = () => {
           transition={{ duration: 1, ease: "easeOut" }}
           className="font-display text-5xl md:text-7xl lg:text-8xl text-foreground leading-tight mb-6"
         >
-          Discrétion & perspicacité.{" "}
-          <span className="italic">Professionnellement</span>
+          <span className="flex flex-wrap justify-center gap-x-[0.3em]">
+            {words.map((word, i) => (
+              <motion.span
+                key={i}
+                className="relative cursor-default inline-block"
+                onMouseEnter={() => setHoveredWord(i)}
+                onMouseLeave={() => setHoveredWord(null)}
+                animate={{
+                  color: hoveredWord === i ? "hsl(40, 60%, 50%)" : "hsl(40, 20%, 90%)",
+                  scale: hoveredWord === i ? 1.05 : 1,
+                  textShadow: hoveredWord === i
+                    ? "0 0 30px hsla(40, 60%, 50%, 0.4), 0 0 60px hsla(40, 60%, 50%, 0.15)"
+                    : "0 0 0px transparent",
+                }}
+                transition={{ duration: 0.35, ease: "easeOut" }}
+              >
+                {word.text}
+              </motion.span>
+            ))}
+          </span>
+          <span className="flex justify-center mt-1">
+            {secondLine.map((word, i) => (
+              <motion.span
+                key={i + 10}
+                className="relative cursor-default inline-block italic"
+                onMouseEnter={() => setHoveredWord(i + 10)}
+                onMouseLeave={() => setHoveredWord(null)}
+                animate={{
+                  color: hoveredWord === i + 10 ? "hsl(40, 60%, 50%)" : "hsl(40, 20%, 90%)",
+                  scale: hoveredWord === i + 10 ? 1.05 : 1,
+                  textShadow: hoveredWord === i + 10
+                    ? "0 0 30px hsla(40, 60%, 50%, 0.4), 0 0 60px hsla(40, 60%, 50%, 0.15)"
+                    : "0 0 0px transparent",
+                }}
+                transition={{ duration: 0.35, ease: "easeOut" }}
+              >
+                {word.text}
+              </motion.span>
+            ))}
+          </span>
         </motion.h1>
 
         <motion.p
