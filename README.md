@@ -1,3 +1,1 @@
-# Welcome to your Lovable project
-
-TODO: Document your project here
+#Votre futur détective privé vous souhaite la Bienvenue
